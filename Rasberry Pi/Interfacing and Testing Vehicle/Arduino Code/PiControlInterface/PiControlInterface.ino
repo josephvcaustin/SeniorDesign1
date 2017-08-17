@@ -37,23 +37,44 @@ void setup(){
 
 void loop()
 { 
-  doCommand();
+  int command = getCommand();
+  doCommand(command);
 }
 
-void doCommand()
+int getCommand()
 {
-  if (Serial.available() > 0)
+ int readInt = 0;
+ int i = 3;
+ while(i >= 0)
+ {
+  if(Serial.available() > 0)
   {
-    int readIn = (Serial.read()-'0');
+    int powten = 1; 
+    for(int j = i; j>0; j--) {powten *= 10;}
+    readInt += powten * (Serial.read()-'0');
+    i--;
+  }
+ }
+ //Serial.println(readInt); 
+ return readInt;
+}
+
+int pow(int base, int exponent)
+{
     
-    if (readIn >= 1000) //Is a valid command
+}
+
+void doCommand(int readInt)
+{
+    //Serial.println("1001"); return;
+    if (readInt >= 1000) //Is a valid command
     {
-      int command = readIn/1000; //First two digits indicate command
-      int argument = readIn%1000; //Last two digits indicate argument
+      int command = readInt/100; //First two digits indicate command
+      int argument = readInt%100; //Last two digits indicate argument
       
-      if (readIn == QUERY) {Serial.println(ACKNOWLEDGE); return;}
+      if (command == QUERY) {Serial.println(ACKNOWLEDGE); return;}
       
-      if (command == SEND_STEERING)
+      else if (command == SEND_STEERING)
       {
         float argToValue = (MAX_STEER_LEFT - MAX_STEER_RIGHT)*(argument/((2*VALUE_MIDDLE)-1)) + MAX_STEER_RIGHT;  
         current_turn = (int)argToValue;
@@ -67,8 +88,6 @@ void doCommand()
       }
           
     }
-    
-  }
 }
 
 void Acknowledge()

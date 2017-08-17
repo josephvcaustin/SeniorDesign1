@@ -2,7 +2,6 @@ import os, sys, pygame, serialcomm
 from time import sleep
 
 # Display Initialization
-
 pygame.init()
 size = width, height = 1020, 1100
 grey = 50, 50, 50

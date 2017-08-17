@@ -1,0 +1,23 @@
+1) Have GUI not hog as many resources
+
+1.1) Space for readouts
+	Current speed
+	Current heading
+	IR sensor readings
+	Camera turn detection 
+
+2) Get WASD interface working as well
+	Incremental, letting off key -> decremental
+
+3) Add speed sent and speed read visualization (like volume visualizer)
+
+4) Fix D-Pad not showing up
+
+5) Break up interface into individual objects
+
+6) Add code in arduino for getting/setting constants
+6.1) OR just store constants in a text file, more robust.
+
+7) Add code for setting constant to add to threshold point for camera
+7.1) Add camera visualization to GUI?
+
